@@ -26,39 +26,7 @@ const getVendasById = (request, response) => {
 }
 
  
-const vendaTeste = {
-  "COD_CLIENTE": 999,
-  "COD_ENDERECO": 1,
-  "VALOR": 1.5,
-  "TROCO": 0,
-  "DESCONTO": 0,
-  "ITENS": [
-    {
-      "COD_PRODUTO": "8888",
-      "NOME": "EURO SOLTO",
-      "QTDE": 1,
-      "VALOR": 0.5,
-      "DESCONTO": 0
-    },
-    {
-      "COD_PRODUTO": "8888",
-      "NOME": "EURO SOLTO",
-      "QTDE": 1,
-      "VALOR": 0.5,
-      "DESCONTO": 0
-    },
-    {
-      "COD_PRODUTO": "8888",
-      "NOME": "EURO SOLTO",
-      "QTDE": 1,
-      "VALOR": 0.5,
-      "DESCONTO": 0
-    }
-  ],
-  "FORMA_PGTO": "DINHEIRO",
-  "TIPO_VENDA": "NORMAL"
-}
-
+ 
 
 const createVendas = async (request, response) => {
 
