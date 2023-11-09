@@ -2,7 +2,7 @@ const database = require('../../config/database.js')
 
 
 const getUsers = (request, response) => {
-  database.pool.query('SELECT * FROM mercearia.categorias ORDER BY ID', (error, results) => {
+  database.pool.query('SELECT * FROM mercearia.vw_categorias ORDER BY ID', (error, results) => {
     if (error) {
       response.status(500).send(`Ocorreu um ` + error) 
     }
@@ -14,7 +14,7 @@ const getUsers = (request, response) => {
 const getUserById = (request, response) => {
   const id = parseInt(request.params.id)
 
-  database.pool.query('SELECT * FROM mercearia.categorias WHERE id = $1', [id], (error, results) => {
+  database.pool.query('SELECT * FROM mercearia.vw_categorias WHERE id = $1', [id], (error, results) => {
     if (error) {
       response.status(400).send(`Ocorreu um erro ao buscar Registros`)
       throw error

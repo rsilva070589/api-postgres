@@ -5,7 +5,8 @@ const produtos = require('./src/model/Produtos')
 const vendas = require('./src/model/Vendas')
 const categoria = require('./src/model/Categoria')
 const formapagamento = require('./src/model/FormasPagamento')
-const port = 4142
+const financeiro = require('./src/model/Financeiro')
+const port = 4141
 var cors = require('cors');
 
 app.use(bodyParser.json()).use(cors())
@@ -19,6 +20,12 @@ app.get('/', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' })
 })
 
+app.get('/financeiro', financeiro.get)
+app.post('/periodofinanceiro/', financeiro.getById)
+app.post('/financeiro', financeiro.create)
+app.put('/financeiro/:id', financeiro.update)
+app.delete('/financeiro/:id', financeiro.deleteId)
+
 app.get('/produtos', produtos.getUsers)
 app.get('/produtos/:id', produtos.getUserById)
 app.post('/produtos', produtos.createUser)
@@ -26,7 +33,7 @@ app.put('/produtos/:id', produtos.updateUser)
 app.delete('/produtos/:id', produtos.deleteUser)
 
 app.get('/vendas', vendas.getVendas)
-app.get('/vendas/:id', vendas.getVendasById)
+app.post('/periodovendas', vendas.getVendasById)
 app.post('/vendas', vendas.createVendas)
 app.put('/vendas/:id', vendas.updateVendas)
 app.delete('/vendas/:id', vendas.deleteVendas)

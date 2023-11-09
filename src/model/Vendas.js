@@ -13,16 +13,21 @@ const getVendas = (request, response) => {
 }
 
 const getVendasById = (request, response) => {
-  const id = parseInt(request.params.id)
+    const context = {} 
+    context.dataIni = (request.body.DATAINI)
+    context.dataFim = (request.body.DATAFIM)
 
-  database.pool.query('SELECT * FROM mercearia.vendas WHERE id = $1', [id], (error, results) => {
+    console.log(request.body)
+
+  database.pool.query(`SELECT * FROM mercearia.vendas WHERE DATA >= to_date($1,'dd/mm/yyyy') and DATA <= to_date($2,'dd/mm/yyyy') ` , 
+      [context.dataIni,context.dataFim], (error, results) => {
     if (error) {
       response.status(400).send(`Ocorreu um erro ao buscar Registros`)
       throw error
     }
     if (!error){
       response.status(200).json(results.rows)  }
-  }).then(x => x)
+  })?.then(x => x)
 }
 
  
