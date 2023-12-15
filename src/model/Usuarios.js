@@ -1,14 +1,47 @@
 const database = require('../../config/database.js') 
 
+const valorLogado = require('./Acesso.js') 
 
-const getUsers = (request, response) => {
-  database.pool.query('SELECT * FROM mercearia.vwprodutos ORDER BY DESCRICAO ASC', (error, results) => {
+let schemaUsuario = null
+
+const getLogin = async (usuario,response) => {
+  const id = usuario
+  console.log('Base de dados do '+id)
+
+  database.pool.query('SELECT * FROM comissao.acesso WHERE usuario = $1', [id],(error, results) => {
     if (error) {
       response.status(500).send(`Ocorreu um ` + error) 
     }
     if (!error)
-    response.status(200).json(results.rows)
+    console.log(valorLogado)
+    schemaUsuario = results.rows[0]?.schema 
   })
+}
+
+
+ 
+
+const getUsers = async (request, response) => {
+  const username = request.params.username
+  await getLogin(username)
+  console.log(username)
+  
+
+  if (schemaUsuario){
+    let query = 'SELECT * FROM "' +schemaUsuario+'".usuarios ORDER BY NOME ASC'
+    console.log(query)
+  
+    database.pool.query(query, (error, results) => {
+      if (error) {
+        response.status(500).send(`Ocorreu um ` + error) 
+      }
+      if (!error)
+      response.status(200).json(results.rows)
+    })
+  }else{
+    response.status(500).send(`nao tem schema `) 
+  }
+  
 }
 
 const getUserById = (request, response) => {

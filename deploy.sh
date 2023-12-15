@@ -14,7 +14,7 @@ git commit -m "versao final"
  
  
 git branch -M main
-git remote add origin https://github.com/rsilva070589/api-postgres.git
+git remote add origin https://github.com/rsilva070589/api-comissao-postgres.git
 
 git push -f origin main
  
